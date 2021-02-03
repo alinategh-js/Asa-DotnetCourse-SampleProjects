@@ -31,8 +31,8 @@ namespace Asa.Draft
             //var id = await baseInfoService.CreateBuilding("my Building", 5);
 
             var baseInfoService = new BaseInfoApplicationService(@"Data source=.\DevInstance;initial catalog=ApartmentManagementSystem; User Id=sa;pwd=password1;");
-            var units= await baseInfoService.GetUnitsForBuilding(1);
-            
+            var units = await baseInfoService.GetUnitsForBuilding(1);
+
 
 
             Console.WriteLine("Done");

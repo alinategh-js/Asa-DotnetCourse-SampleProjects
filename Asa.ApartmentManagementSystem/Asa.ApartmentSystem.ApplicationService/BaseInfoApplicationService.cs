@@ -24,6 +24,7 @@ namespace Asa.ApartmentSystem.ApplicationService
             await buildingManager.AddBuilding(buildingDto);
             return buildingDto.Id;
         }
+
         public async Task<IEnumerable<ApartmentUnitDTO>> GetUnitsForBuilding(int buildingId)
         {
             var buildingManager = new BuildingManager(tableGatwayFactory);
