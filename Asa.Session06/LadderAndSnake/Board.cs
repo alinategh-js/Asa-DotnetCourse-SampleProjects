@@ -1,62 +1,105 @@
-﻿using System;
+﻿using LadderAndSnake.DTO;
+using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
-
+[assembly: InternalsVisibleTo("LadderAndSnake.NUnitTests")]
 namespace LadderAndSnake
 {
-    class Board
+    internal class Board
     {
-        public int Heigth { get; }
-        public int Width { get; }
-        public int ExitPint => Heigth * Width;
+        public int Height { get; }              
+        public int Width { get; }               
+        public int ExitPoint => Height * Width;
 
-        int _ladderCount;
-        int _SnakeCount;
+        int _ladderCount = 0;
+        int _snakeCount = 0;        
+
         List<ShortCut> _shortCuts;// this data structure is not performant in term of time and space complexity
-        public Board(int heigth, int width, int ladderCount, int snakeCount)
+        public Board(BoardDataDto boardData)
         {
-            Heigth = heigth;
-            Width = width;
-            _ladderCount = ladderCount;
-            _SnakeCount = snakeCount;
-            if (Heigth * width < (_ladderCount + snakeCount) / 2)
-            {
-                throw new ArgumentOutOfRangeException("The size of the board and number of the ladders and snakes are not compatible.");
-            }
+            Height = boardData.Height;
+            Width = boardData.Width;
             _shortCuts = new List<ShortCut>();
-            Initial();
         }
 
-        private void Initial()
+        internal void AddLadderToBoard(ShortCut ladder)
         {
-            AddSnake();
-            AddLAdder();
+            _shortCuts.Add(ladder);
+            _ladderCount++;
+            ValidateBoard();
+            ValidateShortCuts();
         }
 
-        private void AddSnake()
+        internal void AddSnakeToBoard(ShortCut snakes)
         {
-            for (int i = 0; i < _SnakeCount; i++)
+            _shortCuts.Add(snakes);
+            _snakeCount++;
+            ValidateBoard();
+            ValidateShortCuts();
+        }
+
+        private void ValidateBoard()
+        {
+            if (Height * Width <= (_ladderCount + _snakeCount) * 2)
             {
-                //Implement
+                throw new Exception("The size of the board and number of the ladders and snakes are not compatible.");
             }
         }
 
-        private void AddLAdder()
+        private void ValidateShortCuts()
         {
-            for (int i = 0; i < _SnakeCount; i++)
+            int count = 0;
+            for(int i = 1; i < ExitPoint; i++)
             {
-                //Implement
+                foreach(ShortCut s in _shortCuts)
+                {
+                    if (s.Start == i) count++;
+                }
+                if (count > 1)
+                {
+                    throw new Exception("Error: Overlapping snakes and ladders detected.");
+                }
+                count = 0;
             }
         }
-
-        internal int CalculateNextPostion(int position, int diceValue)
+        
+        internal PlayerDataDTO CalculateNextPostion(PlayerDataDTO playerData)
         {
-            throw new NotImplementedException();
+            var newPosition = playerData.Position;
+            // First calculate newPosition = position + diceValue
+            // First of all if newPosition exceeds the cells of the board then player cannot move.
+            if (newPosition + playerData.DiceValue <= ExitPoint)
+            {
+                newPosition = playerData.Position + playerData.DiceValue;
+            }
+            playerData.Position = newPosition;
+            // if player ends up on a shortcut they should move to the end of the shortcut so newPosition is calculated again.
+            var newPlayerData = CheckShortCut(playerData);
+            //return newPosition;
+            return newPlayerData;
         }
 
-        internal BoardDataDto GetData()
+        private PlayerDataDTO CheckShortCut(PlayerDataDTO playerData)
         {
-            throw new NotImplementedException();
+            foreach(ShortCut cut in _shortCuts)
+            {
+                if (cut.Start == playerData.Position)
+                {
+                    //return cut.End;
+                    return cut.Calculate(playerData , ExitPoint);
+                }
+            }
+            return playerData;
+        }
+
+        
+
+        internal PlayerDataDTO MoveOnBoard(PlayerDataDTO playerData)
+        {
+            var newPlayerData = CalculateNextPostion(playerData);
+            return newPlayerData;
+            //return new MoveResult(newPlayerData.Name, playerData.Color, playerData.Position, newPosition , playerData.DiceValue, playerData.Shields);
         }
     }
 }

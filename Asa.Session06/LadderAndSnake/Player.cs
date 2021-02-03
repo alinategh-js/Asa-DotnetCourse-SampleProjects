@@ -1,31 +1,22 @@
 ﻿using System;
+using LadderAndSnake.DTO;
 
 namespace LadderAndSnake
 {
-    internal class Player
+    public class Player
     {
         public string Name { get; }
         public int Position { get; private set; } = 1;
+        public int Shields { get; private set; } = 0;
         public ColorEnum Color { get; }
+        public int DiceValue { get; private set; }
 
         public Player(string name, ColorEnum color)
         {
-
             Name = name != null ? name.Trim().ToLower() : throw new ArgumentNullException(nameof(name));
-
-            //if (name != null)
-            //{
-            //    Name = null;
-            //}
-            //else
-            //{
-            //    throw new ArgumentNullException(nameof(name));
-            //}
-
             Color = color;
-            //Position = 1;
         }
-        public int RollDice()
+        public int RollDice() // Not Testable because of Random
         {
             var randomGenerator = new Random();
             var randomNumber = randomGenerator.Next(1, 1000);
@@ -53,11 +44,24 @@ namespace LadderAndSnake
 
         internal MoveResult MoveOn(Board board)
         {
-            var diceValue = RollDice();
+            DiceValue = RollDice();
             var oldPosition = Position;
-            var newPosition = board.CalculateNextPostion(oldPosition, diceValue);
-            Position = newPosition;
-            return new MoveResult(Name, Color, oldPosition, newPosition, diceValue);
+            //var newPosition = board.CalculateNextPostion(oldPosition, diceValue);
+            PlayerDataDTO playerData = SetPlayerData();
+            PlayerDataDTO newPlayerData = board.MoveOnBoard(playerData);
+            //Position = newPosition;
+            Position = newPlayerData.Position;
+            Shields = newPlayerData.Shields;
+            return new MoveResult(Name, Color, oldPosition, Position, DiceValue, Shields);
+        }
+
+        private PlayerDataDTO SetPlayerData()
+        {
+            var playerData = new PlayerDataDTO();
+            playerData.DiceValue = RollDice();
+            playerData.Position = Position;
+            playerData.Shields = Shields;
+            return playerData;
         }
     }
 }
