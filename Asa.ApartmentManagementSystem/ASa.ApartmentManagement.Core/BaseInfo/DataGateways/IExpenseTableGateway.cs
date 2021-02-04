@@ -1,0 +1,15 @@
+﻿using ASa.ApartmentManagement.Core.BaseInfo.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ASa.ApartmentManagement.Core.BaseInfo.DataGateways
+{
+    public interface IExpenseTableGateway
+    {
+        Task<IEnumerable<ExpenseDTO>> GetAllExpenses(int unitId);
+        Task InsertExpenseForUnit(int unitId, ExpenseDTO expenseDto);
+        Task DeleteExpenseForUnit(int unitId);
+    }
+}
