@@ -12,7 +12,8 @@ namespace Asa.ApartmentSystem.Infra.DataGateways
     {
         string _connectionString;
         public BuildingTableGateway(string connectionStrin)
-        {            _connectionString = connectionStrin;
+        {            
+            _connectionString = connectionStrin;
         }
 
         public async Task<int> InsertBuildingAsync(BuildingDTO building)
