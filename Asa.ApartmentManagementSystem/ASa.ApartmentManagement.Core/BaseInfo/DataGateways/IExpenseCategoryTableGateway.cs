@@ -9,7 +9,7 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.DataGateways
     public interface IExpenseCategoryTableGateway
     {
         Task<IEnumerable<ExpenseCategoryDTO>> GetAllExpenseCategories();
-        Task InsertExpenseCategory(ExpenseCategoryDTO expenseCategoryDTO);
+        Task<int> InsertExpenseCategory(ExpenseCategoryDTO expenseCategoryDTO);
         Task DeleteExpenseCategory(int categoryId);
     }
 }

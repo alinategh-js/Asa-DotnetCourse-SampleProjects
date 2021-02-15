@@ -13,6 +13,6 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.DTOs
         public DateTime From { get; set; }
         public DateTime To { get; set; }
         public decimal Cost { get; set; }
-        public FormulaEnum Formula { get; set; }
+        public FormulaType Formula { get; set; }
     }
 }

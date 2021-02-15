@@ -53,5 +53,6 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.Managers
             return await tableGateway.GetAllOwnerTenant(unitId).ConfigureAwait(false);            
         }
 
+
     }
 }

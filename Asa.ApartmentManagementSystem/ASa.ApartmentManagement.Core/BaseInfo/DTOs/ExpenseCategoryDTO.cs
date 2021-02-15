@@ -9,6 +9,6 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.DTOs
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public FormulaEnum Formula { get; set; }
+        public FormulaType Formula { get; set; }
     }
 }

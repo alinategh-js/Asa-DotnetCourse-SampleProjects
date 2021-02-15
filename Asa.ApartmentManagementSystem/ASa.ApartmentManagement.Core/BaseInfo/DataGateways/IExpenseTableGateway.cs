@@ -9,7 +9,7 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.DataGateways
     public interface IExpenseTableGateway
     {
         Task<IEnumerable<ExpenseDTO>> GetAllExpensesAsync();
-        Task InsertExpense(ExpenseDTO expenseDto);
+        Task<int> InsertExpense(ExpenseDTO expenseDto);
         Task DeleteExpenseForUnit(int unitId);
     }
 }
