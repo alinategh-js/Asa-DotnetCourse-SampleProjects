@@ -17,6 +17,7 @@ namespace Asa.Draft.EF
             builder.HasKey(x => x.Id).IsClustered();
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.BirthDate);
+            builder.HasMany(x => x.Courses);
         }
     }
 }

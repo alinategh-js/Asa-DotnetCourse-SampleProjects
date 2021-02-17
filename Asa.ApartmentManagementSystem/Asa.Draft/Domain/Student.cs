@@ -12,5 +12,7 @@ namespace Asa.Draft.Domain
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
+        public int TeacherId { get; set; }
+        public virtual ICollection<StudentCourse> Courses { get; set; }
     }
 }

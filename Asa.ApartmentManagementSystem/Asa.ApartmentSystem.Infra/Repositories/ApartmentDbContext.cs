@@ -1,12 +1,14 @@
 ﻿using ASa.ApartmentManagement.Core.ChargeCalculation.Domain;
+using ASa.ApartmentManagement.Core.ChargeCalculation.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Asa.ApartmentSystem.Infra.Repositories
 {
-    public class ApartmentDbContext : DbContext
+    public class ApartmentDbContext : DbContext,IUnitOfWork
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -14,6 +16,17 @@ namespace Asa.ApartmentSystem.Infra.Repositories
             optionsBuilder.UseSqlServer("ConnectionString");//TODO : put CNX here
         }
 
+        public Task Commit() => this.SaveChangesAsync();
+        
+
+
         public DbSet<Building> Buildings { get; set; }
+        public DbSet<Charge> Charges { get; set; }
+
+        public IBuildingRepository BuildingRepository => throw new NotImplementedException();
+
+        public IExpensRepository ExpensRepository => throw new NotImplementedException();
+
+        public IChargeRepository ChargeRepository => throw new NotImplementedException();
     }
 }
