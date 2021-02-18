@@ -22,11 +22,12 @@ namespace Asa.ApartmentSystem.Infra.Repositories
 
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Charge> Charges { get; set; }
+        public DbSet<Expens> Expenses { get; set; }
 
-        public IBuildingRepository BuildingRepository => throw new NotImplementedException();
+        public IBuildingRepository BuildingRepository => new EfBuildingRepository(this);
 
-        public IExpensRepository ExpensRepository => throw new NotImplementedException();
+        public IExpensRepository ExpensRepository => new EfExpensRepository(this);
 
-        public IChargeRepository ChargeRepository => throw new NotImplementedException();
+        public IChargeRepository ChargeRepository => new EfChargeRepository(this);
     }
 }

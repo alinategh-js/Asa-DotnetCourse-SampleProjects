@@ -7,10 +7,17 @@ namespace ASa.ApartmentManagement.Core.ChargeCalculation.Domain
 
     public class Expens
     {
+        public Expens(IFormula formula)
+        {
+            Formula = formula;
+        }
+        public Expens()
+        {            
+        }
         public int Id { get; private set; }
         public decimal Amount { get; private  set; }
         public string Title { get; private  set; }
-        public IFormula Formula { get; private  set; }
+        public IFormula Formula { get; set; }
         public DateTime From { get; private  set; }
         public DateTime To { get; private  set; }
 

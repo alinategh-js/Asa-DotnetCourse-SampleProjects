@@ -16,9 +16,17 @@ namespace Asa.Draft.EF
             builder.ToTable("Teacher");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name);
+            
+            /*
+            //Approach two for ReadOnly List
+            builder.Property<IEnumerable<Student>>(nameof(Teacher.Students))
+                .HasField("_students")
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
+            */
+
             builder.HasMany(x => x.Students)
                    .WithOne()
-                   .IsRequired();
+                   .IsRequired();            
         }
     }
 }

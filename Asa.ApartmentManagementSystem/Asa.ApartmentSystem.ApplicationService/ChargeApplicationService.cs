@@ -13,10 +13,9 @@ namespace Asa.ApartmentSystem.ApplicationService
         {
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
         }
+
         public async Task CalculateCharge(DateTime from, DateTime to)
         {
-            //Load all expenses from, to
-            //Calculate charge
             using (var uow = _unitOfWorkFactory.Create())
             {
                 var expenses = await uow.ExpensRepository.GetAllByDateAsync(from, to);

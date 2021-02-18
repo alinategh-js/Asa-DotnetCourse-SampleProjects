@@ -7,7 +7,7 @@ namespace ASa.ApartmentManagement.Core.ChargeCalculation.Domain
     public class Charge
     {
         public int Id { get; set; }
-        List<ChargeItem> _items { get; set; }
+        List<ChargeItem> _items;
         public IEnumerable<ChargeItem> Items => _items.AsReadOnly();
         public int UnitId { get; set; }
         public int UnitNumber { get; set; }

@@ -21,7 +21,14 @@ namespace Asa.Draft.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //new StudentEntityTypeConfiguration().Configure(modelBuilder.Entity<Student>());
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentDbContext).Assembly);
+
+            /*
+            //Approach 1 for readonly list;
+            var navigation=modelBuilder.Entity<Teacher>().Metadata.FindNavigation(nameof(Teacher.Students));
+            navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
+            */
         }
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }

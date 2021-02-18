@@ -1,6 +1,7 @@
 ﻿using Asa.ApartmentSystem.ApplicationService;
 using Asa.Draft.EF;
 using System;
+using System.Reflection;
 using System.Linq;
 using System.Configuration;
 using System.Threading;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Asa.Draft.Domain;
 using Microsoft.EntityFrameworkCore;
+using ASa.ApartmentManagement.Core.ChargeCalculation.Domain.CalculationFormula;
 
 namespace Asa.Draft
 {
@@ -141,20 +143,27 @@ namespace Asa.Draft
             //    t = dbContext.Teachers.FirstOrDefault();
             //}
 
-            using (var dbContext = new StudentDbContext())
-            {
-                var studentsList = dbContext.Students.ToList();
-            }
+            //using (var dbContext = new StudentDbContext())
+            //{
+            //    var studentsList = dbContext.Students.ToList();
+            //}
 
 
             //Console.WriteLine(t.Students.Count);
             #endregion EF
 
+            #region params
             //var a = Add(1, 2, 3);
             //var b = Add(1);
             //var c = Add();
             //var d = Add(new int[] { 1,2,3,4,5});
+            #endregion params
 
+            #region Reflection
+            var formulaNames = CalculationFormulaFactory.GetAll();
+            var formula = CalculationFormulaFactory.Create(formulaNames[0].TypeName);
+            var share = formula.Calculate(null, null, 1);
+            #endregion Reflection
             Console.WriteLine("Done");
             Console.ReadLine();
         }
