@@ -121,6 +121,12 @@ namespace Asa.Draft
             //    dbContext.Students.RemoveRange(s1, s2);
             //    dbContext.SaveChanges();
             //}
+
+
+            using( var dbContext = new StudentDbContext())
+            {
+
+            }
             #endregion EF
 
             var a = Add(1, 2, 3);

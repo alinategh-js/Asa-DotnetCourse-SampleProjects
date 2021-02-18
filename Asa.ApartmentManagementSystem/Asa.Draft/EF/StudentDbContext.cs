@@ -23,5 +23,6 @@ namespace Asa.Draft.EF
             //modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentDbContext).Assembly);
         }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Course> Courses { get; set; }
     }
 }
