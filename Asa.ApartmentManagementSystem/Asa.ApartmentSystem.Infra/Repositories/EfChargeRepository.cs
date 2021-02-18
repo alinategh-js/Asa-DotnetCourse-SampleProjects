@@ -21,6 +21,11 @@ namespace Asa.ApartmentSystem.Infra.Repositories
             return Task.CompletedTask;
         }
 
+        public Task AddRangeAsync(IEnumerable<Charge> charges)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteAllAfterDateAsync(DateTime from)
         {
             _dbContex.Charges.RemoveRange(_dbContex.Charges.Where(x => x.IssueDate >= from));
