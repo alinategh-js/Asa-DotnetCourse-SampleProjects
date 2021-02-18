@@ -8,8 +8,8 @@ namespace ASa.ApartmentManagement.Core.ChargeCalculation.Domain
     {
         public int Area { get; }
         public int UnitNumber { get; }
-        private List<Payer> _payers; 
-        public IReadOnlyList<Payer> Payers { get; }
+        private List<Payer> _payers;
+        public IEnumerable<Payer> Payers => _payers.AsReadOnly();
         public void Add(Payer payer)
         {
             //Business rule

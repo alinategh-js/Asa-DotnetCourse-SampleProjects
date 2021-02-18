@@ -14,8 +14,9 @@ namespace Asa.Draft.EF
         public void Configure(EntityTypeBuilder<Course> builder)
         {
             builder.ToTable("course");
-            builder.HasKey(x => x.Id).IsClustered();
-            builder.Property(x => x.Name).IsRequired();
+            builder.HasKey(x=>x.Id);
+            builder.Property(x=>x.Title);
+            builder.HasMany(x => x.Students);
         }
     }
 }

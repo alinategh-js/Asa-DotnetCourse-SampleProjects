@@ -9,6 +9,7 @@ namespace Asa.Draft.Domain
     public class Course
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
+        public virtual ICollection<StudentCourse> Students { get; set; }
     }
 }

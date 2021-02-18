@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Asa.Draft.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Asa.Draft
 {
@@ -114,7 +115,6 @@ namespace Asa.Draft
 
             //using (var dbContext = new StudentDbContext())
             //{
-
             //    var s1 = new Student { Id = 7 };
             //    var s2 = new Student { Id = 3 };
             //    //dbContext.Students.RemoveRange(new Student[] { s1, s2 });
@@ -123,16 +123,37 @@ namespace Asa.Draft
             //}
 
 
-            using( var dbContext = new StudentDbContext())
-            {
+            //Teacher t = null;
 
+            //using (var dbContext = new StudentDbContext())
+            //{
+            //    //Eager Loading
+            //    //    var teacher = dbContext.Teachers.Include(x => x.Students).FirstOrDefault();
+
+            //    //Explicit Loading
+            //    //var teacher = dbContext.Teachers.FirstOrDefault();
+            //    //dbContext.Entry(teacher).Collection(x => x.Students).Load();
+
+            //    //Lazy Loading
+            //    //var teacher = dbContext.Teachers.FirstOrDefault();
+            //    //Console.WriteLine(teacher.Students.Count);
+
+            //    t = dbContext.Teachers.FirstOrDefault();
+            //}
+
+            using (var dbContext = new StudentDbContext())
+            {
+                var studentsList = dbContext.Students.ToList();
             }
+
+
+            //Console.WriteLine(t.Students.Count);
             #endregion EF
 
-            var a = Add(1, 2, 3);
-            var b = Add(1);
-            var c = Add();
-            var d = Add(new int[] { 1,2,3,4,5});
+            //var a = Add(1, 2, 3);
+            //var b = Add(1);
+            //var c = Add();
+            //var d = Add(new int[] { 1,2,3,4,5});
 
             Console.WriteLine("Done");
             Console.ReadLine();

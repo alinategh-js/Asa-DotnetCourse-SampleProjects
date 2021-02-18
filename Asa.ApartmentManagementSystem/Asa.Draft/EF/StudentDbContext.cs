@@ -1,5 +1,6 @@
 ﻿using Asa.Draft.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Proxies;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,15 +15,16 @@ namespace Asa.Draft.EF
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["AppartmentManagementCNX"].ConnectionString;
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseLazyLoadingProxies()
+                          .UseSqlServer(connectionString);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new StudentEntityTypeConfiguration().Configure(modelBuilder.Entity<Student>());
-
-            //modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentDbContext).Assembly);
+            //new StudentEntityTypeConfiguration().Configure(modelBuilder.Entity<Student>());
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentDbContext).Assembly);
         }
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
     }
 }
